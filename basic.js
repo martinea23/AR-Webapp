@@ -17,6 +17,11 @@ window.onload = () => {
                 latitude: e.detail.position.latitude + 0.001,
                 longitude: e.detail.position.longitude
             });
+            entity.setAttribute('class', {clickable});
+            entity.setAttribute('gesture-handler',{
+                minScale:0.25,
+                maxScale: 10
+            });
             document.querySelector("a-scene").appendChild(entity);
         }
         testEntityAdded = true;
