@@ -63,9 +63,9 @@
           .enter()
           .append("rect")
           .attr("x", (d, i) => x(i))
-          .attr("y", (d) => y(d))
+          .attr("y", (d) => y(d.val))
           .attr("width", width / data.length - 1)
-          .attr("height", (d) => height - y(d))
+          .attr("height", (d) => height - y(d.val))
           .attr("fill", "steelblue");
   
         // Create the x-axis
