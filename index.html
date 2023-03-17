@@ -66,13 +66,13 @@
         const xAxis = d3.axisBottom(x);
         svg.append("g")
           .attr("transform", `translate(0, ${height})`)
-          .attr("fill", "white")
+          .attr("color", "white")
           .call(xAxis);
   
         // Create the y-axis
         const yAxis = d3.axisLeft(y);
         svg.append("g")
-          .attr("fill", "white")
+          .attr("color", "white")
           .call(yAxis)
           
   
