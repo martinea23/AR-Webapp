@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"></script>
   <script>
     window.onload = function () {
       document
@@ -15,6 +16,65 @@
         });
     };
   </script>
+      <script>
+        // Define your data
+        const data = [30, 86, 168, 281, 303, 365];
+  
+        // Define the dimensions of your chart
+        const width = 400;
+        const height = 200;
+  
+        // Define the scales for the x and y axes
+        const x = d3.scaleLinear()
+          .domain([0, data.length - 1])
+          .range([0, width]);
+        const y = d3.scaleLinear()
+          .domain([0, d3.max(data)])
+          .range([height, 0]);
+  
+        // Create an SVG element and set its dimensions
+        const svg = d3.select("#chart-container")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height);
+  
+        // Create the bars of the chart
+        svg.selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", (d, i) => x(i))
+          .attr("y", (d) => y(d))
+          .attr("width", width / data.length - 1)
+          .attr("height", (d) => height - y(d))
+          .attr("fill", "steelblue");
+  
+        // Create the x-axis
+        const xAxis = d3.axisBottom(x);
+        svg.append("g")
+          .attr("transform", `translate(0, ${height})`)
+          .call(xAxis);
+  
+        // Create the y-axis
+        const yAxis = d3.axisLeft(y);
+        svg.append("g")
+          .call(yAxis);
+  
+        // Hide the chart initially
+        d3.select("#chart-container").style("display", "none");
+  
+        // Show the chart when the "hiro" marker is detected
+        const marker = document.querySelector("a-marker");
+        marker.addEventListener("markerFound", () => {
+          d3.select("#chart-container").style("display", "block");
+        });
+  
+        // Hide the chart when the "hiro" marker is lost
+        marker.addEventListener("markerLost", () => {
+          d3.select("#chart-container").style("display", "none");
+        });
+        
+      </script>
   <style>
     .buttons {
       position: absolute;
@@ -44,11 +104,10 @@
     </div>
     <a-scene embedded arjs>
       <a-marker preset="hiro">
-        <a-entity
-          position="0 0 0"
-          scale="0.05 0.05 0.05"
-          gltf-model="assets/soccerball.png"
-        ></a-entity>
+          <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
+             <p>HELLO</p>
+             <div id="chart-container"></div>
+          </a-entity>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
