@@ -69,7 +69,7 @@
           .attr("fill", "steelblue");
   
         // Create the x-axis
-        const xAxis = d3.axisBottom(x);
+        const xAxis = d3.axisBottom(x).tickFormat(i=> data[i].day);
         svg.append("g")
           .attr("transform", `translate(0, ${height})`)
           .attr("color", "white")
