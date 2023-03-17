@@ -73,12 +73,14 @@
         svg.append("g")
           .attr("transform", `translate(0, ${height})`)
           .attr("color", "white")
+          .attr("width", "30")
           .call(xAxis);
   
         // Create the y-axis
         const yAxis = d3.axisLeft(y);
         svg.append("g")
           .attr("color", "white")
+          .attr("width", "30")
           .call(yAxis)
           
   
