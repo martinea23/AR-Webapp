@@ -72,7 +72,9 @@
         // Create the y-axis
         const yAxis = d3.axisLeft(y);
         svg.append("g")
-          .call(yAxis);
+          .attr("fill", "white")
+          .call(yAxis)
+          
   
         // Hide the chart initially
         d3.select("#chart-container").style("display", "none");
