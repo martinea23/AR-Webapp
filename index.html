@@ -59,7 +59,7 @@
   
         // Create the bars of the chart
         svg.selectAll("rect")
-          .data(data)
+          .data(data.sort((a,b) => d3.descending(a.score, b.score)))
           .enter()
           .append("rect")
           .attr("x", (d, i) => x(i))
