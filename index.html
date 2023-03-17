@@ -64,7 +64,7 @@
           .attr("x", (d, i) => x(i))
           .attr("y", (d) => y(d.val))
           .attr("width", width / data.length - 1)
-          .attr("height", (d) => height - y(d.val))
+          .attr("height", (d) => y(d.val))
           .attr("fill", "steelblue");
   
         // Create the x-axis
@@ -79,7 +79,6 @@
         const yAxis = d3.axisLeft(y);
         svg.append("g")
           .attr("color", "white")
-          .attr("width", "30")
           .call(yAxis)
           
   
