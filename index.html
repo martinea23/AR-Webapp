@@ -32,7 +32,7 @@
     <script>
         // Define your data
         const data = [
-          {day: 1 , val:70},
+          {day: 1, val:70},
           {day:2, val: 86},
           {day:3, val: 150},
           {day:4, val: 180},
@@ -59,7 +59,6 @@
   
         // Create the bars of the chart
         svg.selectAll("rect")
-          .data(data.sort((a,b) => d3.descending(a.score, b.score)))
           .enter()
           .append("rect")
           .attr("x", (d, i) => x(i))
@@ -69,7 +68,7 @@
           .attr("fill", "steelblue");
   
         // Create the x-axis
-        const xAxis = d3.axisBottom(x).tickFormat(i=> data[i].day);
+        const xAxis = d3.axisBottom(x);
         svg.append("g")
           .attr("transform", `translate(0, ${height})`)
           .attr("color", "white")
