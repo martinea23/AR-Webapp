@@ -35,7 +35,7 @@
       const data = [30, 86, 168, 281, 303, 365];
       const margin = { top: 10, right: 20, bottom: 30, left: 40 };
       const width = 400 - margin.left - margin.right;
-      const height = 200 - margin.top - margin.bottom;
+      const height = 300 - margin.top - margin.bottom;
       
       // Create an SVG element and set its dimensions
       const svg = d3.select("#chart-container")
@@ -83,7 +83,7 @@
       //Add a title
       svg.append("text")
         .attr("x", width / 2)
-        .attr("y", -7)
+        .attr("y", margin.top/2)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .style("fill", "white")
