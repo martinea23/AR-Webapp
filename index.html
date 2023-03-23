@@ -23,7 +23,6 @@
     <a-scene embedded arjs>
       <a-marker preset="hiro">
           <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
-            <p class="title"> Chart Title</p>
              <div id="chart-container"></div>
           </a-entity>
       </a-marker>
@@ -50,7 +49,7 @@
       const x = d3.scaleLinear()
         .domain([0, data.length - 1])
         .range([0, width]);
-        
+
       const y = d3.scaleLinear()
         .domain([0, d3.max(data)])
         .range([height, 0]);
@@ -84,9 +83,10 @@
       //Add a title
       svg.append("text")
         .attr("x", width / 2)
-        .attr("y", 0 - margin.top / 2)
+        .attr("y", 0 - margin.top)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
+        .style("color", "white")
         .style("font-weight", "bold")
         .text("Water Usage");
 
