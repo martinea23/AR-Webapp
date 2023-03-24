@@ -28,11 +28,9 @@
 
     function toggleGraph() {
       if (currentGraph === "bar") {
-        document.getElementById("pie-chart").style.display = "block";
         document.getElementById("bar-chart").style.display = "none";
-        currentGraph = "pie";
+        currentGraph = "none";
       } else {
-        document.getElementById("pie-chart").style.display = "none";
         document.getElementById("bar-chart").style.display = "block";
         currentGraph = "bar";
       }
@@ -129,42 +127,6 @@
       d3.select("#bar-chart").style("display", "none");
     });
 
-    // Create the pie chart SVG element and set its dimensions
-    const pieChart = d3.select("#pie-chart")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .style("display", "none");
-
-    // Define the data for the pie chart
-    const pieData = [30, 86, 168, 281, 303, 365];
-
-    // Define the arc generator for the pie slices
-    const arc = d3.arc()
-      .innerRadius(0)
-      .outerRadius(Math.min(width, height) / 2 - 1);
-
-    // Define the pie generator
-    const pie = d3.pie()
-      .sort(null)
-      .value((d) => d);
-
-    // Create the pie chart
-    const g = pieChart.append("g")
-      .attr("transform", `translate(${width / 2},${height / 2})`);
-
-    const pieSlices = g.selectAll(".arc")
-      .data(pie(pieData))
-      .enter().append("g")
-      .attr("class", "arc");
-
-    pieSlices.append("path")
-      .attr("d", arc)
-      .attr("fill", (d, i) => d3.schemeCategory10[i % 10]);
-
-    pieSlices.append("text")
-      .attr("transform", (d) => `translate(${arc.centroid(d)})`)
-      .attr("dy", "0.35em")
-      .text((d) => d.value); 
   </script>
 </body>
 
