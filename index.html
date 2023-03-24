@@ -1,168 +1,156 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"></script>
+    <script>
+      window.onload = function () {
+        document
+          .querySelector(".button")
+          .addEventListener("click", function () {
+            alert("This Will Change the scene and or update data");
+          });
+      };
+    </script> 
+    <script>
+      window.onload = function () {
+        document
+          .querySelector(".toggle")
+          .addEventListener("click", function () {
+            const chart = document.querySelector("#chart-container");
+            if (chart.style.display === "none") {
+              chart.style.display = "block";
+            } else {
+              chart.style.display = "none";
+            }
+          });
+      };
+    </script> 
+  </head>
+  <body >
+    <div class="buttons">
+      <button class="button">Updates</button>
+      <button class="toggle">Toggle Chart</button>
+    </div>
 
-<head>
-  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"></script>
-  <script>
-    window.onload = function () {
-      document
-        .querySelector(".button")
-        .addEventListener("click", function () {
-          alert("This Will Change the scene and or update data");
-        });
-    };
-  </script>
-  <script>
-    window.onload = function () {
-      document
-        .querySelector(".toggle")
-        .addEventListener("click", function () {
-          toggleGraph();
-        });
-    };
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+          <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
+             <div id="chart-container"></div>
+          </a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
 
-    let currentGraph = "bar";
-
-    function toggleGraph() {
-      if (currentGraph === "bar") {
-        document.getElementById("bar-chart").style.display = "none";
-        currentGraph = "none";
-      } else {
-        document.getElementById("bar-chart").style.display = "block";
-        currentGraph = "bar";
-      }
-    }
-  </script>
-</head>
-
-<body>
-  <div class="buttons">
-    <button class="button">Updates</button>
-    <button class="toggle">Toggle Chart</button>
-  </div>
-
-  <a-scene embedded arjs>
-    <a-marker preset="hiro">
-      <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
-        <div id="chart-container"></div>
-      </a-entity>
-    </a-marker>
-    <a-entity camera></a-entity>
-  </a-scene>
-
-
-  <script>
-    // Define your data
-    const data = [30, 86, 168, 281, 303, 365];
-    const margin = { top: 10, right: 20, bottom: 30, left: 40 };
-    const width = 400 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-
-    // Create an SVG element and set its dimensions
-    const svg = d3.select("#bar-chart")
+    
+    <script>
+      // Define your data
+      const data = [30, 86, 168, 281, 303, 365];
+      const margin = { top: 10, right: 20, bottom: 30, left: 40 };
+      const width = 400 - margin.left - margin.right;
+      const height = 300 - margin.top - margin.bottom;
+      
+      // Create an SVG element and set its dimensions
+      const svg = d3.select("#chart-container")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // Define the scales for the x and y axes
-    const x = d3.scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, width]);
+      // Define the scales for the x and y axes
+      const x = d3.scaleLinear()
+        .domain([0, data.length - 1])
+        .range([0, width]);
 
-    const y = d3.scaleLinear()
-      .domain([0, d3.max(data)])
-      .range([height, 0]);
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(data)])
+        .range([height, 0]);
 
-    // Create the bars of the chart
-    svg.selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("x", (d, i) => x(i))
-      .attr("y", (d) => y(d))
-      .attr("width", width / data.length)
-      .attr("height", (d) => height - y(d))
-      .attr("fill", "#69b3a2")
-      .attr("stroke", "white")
-      .attr("stroke-width", 1);
+      // Create the bars of the chart
+      svg.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", (d, i) => x(i))
+        .attr("y", (d) => y(d))
+        .attr("width", width / data.length)
+        .attr("height", (d) => height - y(d))
+        .attr("fill", "#69b3a2")
+        .attr("stroke", "white")
+        .attr("stroke-width", 1);
 
-    //xaxis format
-    const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
-    svg.append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .attr("color", "white")
-      .call(xAxis);
+      //xaxis format
+      const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
+      svg.append("g")
+          .attr("transform", `translate(0, ${height})`)
+          .attr("color", "white")
+          .call(xAxis);
+        
+      //yaxis format
+      const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
+      svg.append("g")
+          .attr("color", "white")
+          .call(yAxis);
 
-    //yaxis format
-    const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
-    svg.append("g")
-      .attr("color", "white")
-      .call(yAxis);
+      //Add a title
+      svg.append("text")
+        .attr("x", width / 2)   
+        .attr("y", margin.top/2)
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("fill", "white")
+        .text("Water Usage");
 
-    //Add a title
-    svg.append("text")
-      .attr("x", width / 2)
-      .attr("y", margin.top / 2)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .style("fill", "white")
-      .text("Water Usage");
+      // Hide the chart initially
+      d3.select("#chart-container").style("display", "none");
 
-    // Hide the chart initially
-    d3.select("#bar-chart").style("display", "none");
+      // Show the chart when the "hiro" marker is detected
+      const marker = document.querySelector("a-marker");
+      marker.addEventListener("markerFound", () => {
+        d3.select("#chart-container").style("display", "block");
+      });
 
-    // Show the chart when the "hiro" marker is detected
-    const marker = document.querySelector("a-marker");
-    marker.addEventListener("markerFound", () => {
-      d3.select("#bar-chart").style("display", "block");
-    });
+      // Hide the chart when the "hiro" marker is lost
+      marker.addEventListener("markerLost", () => {
+        d3.select("#chart-container").style("display", "none");
+      });
+      
+    </script>
+  </body>
 
-    // Hide the chart when the "hiro" marker is lost
-    marker.addEventListener("markerLost", () => {
-      d3.select("#bar-chart").style("display", "none");
-    });
+  <style>
+    html, body {
+      overflow: hidden;
+    }
+    .buttons {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
 
-  </script>
-</body>
+    .button {
+      padding: 0.25em;
+      border-radius: 4px;
+      border: none;
+      background: white;
+      color: black;
+      width: 4em;
+      height: 2em;
+    }
 
-<style>
-  html,
-  body {
-    overflow: hidden;
-  }
-
-  .buttons {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-  }
-
-  .button {
-    padding: 0.25em;
-    border-radius: 4px;
-    border: none;
-    background: white;
-    color: black;
-    width: 4em;
-    height: 2em;
-  }
-
-  .title {
-    color: white;
-    position: absolute;
-    justify-content: center;
-  }
-</style>
-
+    .title {
+      color: white;
+      position: absolute;
+      justify-content: center;
+    }
+  </style>
 </html>
