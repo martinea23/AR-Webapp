@@ -14,10 +14,25 @@
           });
       };
     </script> 
+    <script>
+      window.onload = function () {
+        document
+          .querySelector(".toggle")
+          .addEventListener("click", function () {
+            const chart = document.querySelector("#chart-container");
+            if (chart.style.display === "none") {
+              chart.style.display = "block";
+            } else {
+              chart.style.display = "none";
+            }
+          });
+      };
+    </script> 
   </head>
   <body >
     <div class="buttons">
       <button class="button">Updates</button>
+      <button class="toggle">Toggle Chart</button>
     </div>
 
     <a-scene embedded arjs>
@@ -82,7 +97,7 @@
 
       //Add a title
       svg.append("text")
-        .attr("x", width / 2)
+        .attr("x", width / 2)   
         .attr("y", margin.top/2)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
