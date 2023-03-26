@@ -220,8 +220,12 @@
         const [x, y] = arcGenerator.centroid(d);
         // calculate the middle angle of the arc
         const angle = (d.startAngle + d.endAngle) / 2;
-        // rotate the text by the angle
-        return `translate(${x}, ${y}) rotate(${angle * 180 / Math.PI - 90})`; 
+        // check if the label is upside down
+        const isUpsideDown = angle > Math.PI; 
+        // adjust the rotation angle if necessary
+        const rotationAngle = isUpsideDown ? angle * 180 / Math.PI - 90 + 180 : angle * 180 / Math.PI - 90; 
+        
+        return `translate(${x}, ${y}) rotate(${rotationAngle})`; // rotate the text by the angle
       })
       .attr("text-anchor", "middle")
       .style("font-size", "12px")
