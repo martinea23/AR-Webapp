@@ -95,7 +95,7 @@
       .attr("y", (d) => y(d.value))
       .attr("width", width / data.length)
       .attr("height", (d) => height - y(d.value))
-      .attr("fill", "#69b3a2")
+      .attr("fill", (d) => color(d.name))
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
