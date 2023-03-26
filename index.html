@@ -81,7 +81,7 @@
     const x = d3.scaleBand()
       .domain(data.map(d => d.name))
       .range([0, width - width/data.length])
-
+      
     const y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.value)])
       .range([height, 0]);
@@ -93,7 +93,7 @@
       .append("rect")
       .attr("x", (d, i) => x(d.name))
       .attr("y", (d) => y(d.value))
-      .attr("width", width / (data.length))
+      .attr("width", width / (data.length + 1))
       .attr("height", (d) => height - y(d.value))
       .attr("fill", "#69b3a2")
       .attr("stroke", "white")
@@ -107,7 +107,7 @@
       .attr("class", "bar-label")
       .attr("x", (d, i) => x(d.name) + (width / data.length) / 2)
       .attr("y", (d) => y(d.value) - 5)
-      .attr("text-anchor", "center")
+      .attr("text-anchor", "middle")
       .text((d) => d.value);
 
     // Create the x-axis
@@ -123,7 +123,7 @@
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", height + margin.bottom)
-      .attr("text-anchor", "center")
+      .attr("text-anchor", "middle")
       .text("Month");
 
     //y-axis creation 
@@ -136,7 +136,7 @@
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", margin.top / 2)
-      .attr("text-anchor", "center")
+      .attr("text-anchor", "middle")
       .style("font-size", "16px")
       .style("fill", "white")
       .text("Water Usage");
@@ -208,7 +208,7 @@
     marker.addEventListener("markerLost", () => {
       d3.select("#pie-chart-container").style("display", "none");
       document.querySelector(".toggle").style.display = "none";
-      document.querySelector(".button").style.display = "none";
+      document.querySelector(".button").style.display = "block";
     });
   </script>
 
