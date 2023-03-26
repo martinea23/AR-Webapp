@@ -213,6 +213,10 @@
       .attr("stroke-width", 1)
       .append("title")
       .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
+    arcs.append("text")
+      .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+      .attr("dy" , "0.35em")
+      .text((d)=> d.data.name);
 
     // Add a title
     svg2.append("text")
