@@ -1,231 +1,234 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"></script>
 
-    <!-- this is the listeners for input from user -->
-    <script>
-      window.onload = function () {
-        // listener for toggling the graphs
-        document
-          .querySelector(".toggle")
-          .addEventListener("click", function () {
-            const chart = document.querySelector("#chart-container");
-            const pieChart = document.querySelector("#pie-chart-container");
-            if (chart.style.display === "none") {
-              chart.style.display = "block";
-              pieChart.style.display = "none";
-            } else {
-              chart.style.display = "none";
-              pieChart.style.display = "block";
-            }
-          });
-        // listener for updating the data
-        document
-          .querySelector(".button")
-          .addEventListener("click", function () {
-            alert("This Will Change the scene and or update data");
-          });
-      };
-    </script> 
-  </head>
-  <body >
-    <!-- this is the stuff on the actual webpage -->
-    <div class="buttons"> 
-      <button class="toggle">Toggle Chart</button>
-      <button class="button">Updates</button>
-    </div>
+<head>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"></script>
 
-    <!-- this is the stuff in AR -->
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-          <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
-             <div id="chart-container"></div>
-             <div id="pie-chart-container"></div>
-          </a-entity>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
+  <!-- this is the listeners for input from user -->
+  <script>
+    window.onload = function () {
+      // listener for toggling the graphs
+      document
+        .querySelector(".toggle")
+        .addEventListener("click", function () {
+          const chart = document.querySelector("#chart-container");
+          const pieChart = document.querySelector("#pie-chart-container");
+          if (chart.style.display === "none") {
+            chart.style.display = "block";
+            pieChart.style.display = "none";
+          } else {
+            chart.style.display = "none";
+            pieChart.style.display = "block";
+          }
+        });
+      // listener for updating the data
+      document
+        .querySelector(".button")
+        .addEventListener("click", function () {
+          alert("This Will Change the scene and or update data");
+        });
+    };
+  </script>
+</head>
 
-    <!-- this is the bar graph creation -->
-    <script>
-      // Define your data
-      const data = [30, 86, 168, 281, 303, 365];
-      const margin = { top: 10, right: 20, bottom: 30, left: 40 };
-      const width = 400 - margin.left - margin.right;
-      const height = 300 - margin.top - margin.bottom;
-      
-      // Create an SVG element and set its dimensions
-      const svg = d3.select("#chart-container")
+<body>
+  <!-- this is the stuff on the actual webpage -->
+  <div class="buttons">
+    <button class="toggle">Toggle Chart</button>
+    <button class="button">Updates</button>
+  </div>
+
+  <!-- this is the stuff in AR -->
+  <a-scene embedded arjs>
+    <a-marker preset="hiro">
+      <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
+        <div id="chart-container"></div>
+        <div id="pie-chart-container"></div>
+      </a-entity>
+    </a-marker>
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <!-- this is the bar graph creation -->
+  <script>
+    // Define your data
+    const data = [30, 86, 168, 281, 303, 365];
+    const margin = { top: 10, right: 20, bottom: 30, left: 40 };
+    const width = 400 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
+
+    // Create an SVG element and set its dimensions
+    const svg = d3.select("#chart-container")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-      // Define the scales for the x and y axes
-      const x = d3.scaleLinear()
-        .domain([0, data.length - 1])
-        .range([0, width]);
+    // Define the scales for the x and y axes
+    const x = d3.scaleLinear()
+      .domain([0, data.length - 1])
+      .range([0, width]);
 
-      const y = d3.scaleLinear()
-        .domain([0, d3.max(data)])
-        .range([height, 0]);
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(data)])
+      .range([height, 0]);
 
-      // Create the bars of the chart
-      svg.selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("x", (d, i) => x(i))
-        .attr("y", (d) => y(d))
-        .attr("width", width / data.length)
-        .attr("height", (d) => height - y(d))
-        .attr("fill", "#69b3a2")
-        .attr("stroke", "white")
-        .attr("stroke-width", 1);
+    // Create the bars of the chart
+    svg.selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", (d, i) => x(i))
+      .attr("y", (d) => y(d))
+      .attr("width", width / data.length)
+      .attr("height", (d) => height - y(d))
+      .attr("fill", "#69b3a2")
+      .attr("stroke", "white")
+      .attr("stroke-width", 1);
 
-      //xaxis format
-      const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
-      svg.append("g")
-          .attr("transform", `translate(0, ${height})`)
-          .attr("color", "white")
-          .call(xAxis);
-        
-      //yaxis format
-      const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
-      svg.append("g")
-          .attr("color", "white")
-          .call(yAxis);
+    //xaxis format
+    const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
+    svg.append("g")
+      .attr("transform", `translate(0, ${height})`)
+      .attr("color", "white")
+      .call(xAxis);
 
-      //Add a title
-      svg.append("text")
-        .attr("x", width / 2)   
-        .attr("y", margin.top/2)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .style("fill", "white")
-        .text("Water Usage");
+    //yaxis format
+    const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
+    svg.append("g")
+      .attr("color", "white")
+      .call(yAxis);
 
-      // Hide the chart initially
+    //Add a title
+    svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", margin.top / 2)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("fill", "white")
+      .text("Water Usage");
+
+    // Hide the chart initially
+    d3.select("#chart-container").style("display", "none");
+
+    // Show the chart when the "hiro" marker is detected
+    const marker = document.querySelector("a-marker");
+    marker.addEventListener("markerFound", () => {
+      d3.select("#chart-container").style("display", "block");
+      document.querySelector(".toggle").style.display = "block";
+    });
+
+    // Hide the chart when the "hiro" marker is lost
+    marker.addEventListener("markerLost", () => {
       d3.select("#chart-container").style("display", "none");
+      document.querySelector(".toggle").style.display = "none";
+    });
 
-      // Show the chart when the "hiro" marker is detected
-      const marker = document.querySelector("a-marker");
-      marker.addEventListener("markerFound", () => {
-        d3.select("#chart-container").style("display", "block");
-        document.querySelector(".toggle").style.display = "block";
-      });
+  </script>
 
-      // Hide the chart when the "hiro" marker is lost
-      marker.addEventListener("markerLost", () => {
-        d3.select("#chart-container").style("display", "none");
-        document.querySelector(".toggle").style.display = "none";
-      });
-      
-    </script>
+  <!-- Pie chart Creation -->
+  <script>
+    // Define your data for the pie chart
+    const data2 = [10, 20, 30, 40];
 
-    <!-- Pie chart Creation -->
-    <script>
-      // Define your data for the pie chart
-      const data2 = [10, 20, 30, 40];
-    
-      // Create an SVG element and set its dimensions for the pie chart
-      const svg2 = d3.select("#pie-chart-container")
-        .append("svg2")
-        .attr("width", 400)
-        .attr("height", 300)
-        .append("g")
-        .attr("transform", "translate(200,150)");
-    
-      // Define the colors for the pie chart
-      const color = d3.scaleOrdinal()
-        .domain(data2)
-        .range(d3.schemeSet2);
-    
-      // Define the pie layout
-      const pie = d3.pie()
-        .value(function(d) { return d; });
-    
-      // Define the arc for each slice of the pie
-      const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(100);
-    
-      // Create the slices of the pie chart
-      const slices = svg2.selectAll("slice")
-        .data(pie(data2))
-        .enter()
-        .append("g");
-    
-      // Add the path for each slice of the pie
-      slices.append("path")
-        .attr("d", arc)
-        .attr("fill", function(d) { return color(d.data2); })
-        .attr("stroke", "white")
-        .style("stroke-width", "2px");
-    
-      // Add a title
-      svg2.append("text")
-        .attr("x", 0)
-        .attr("y", -130)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .style("fill", "white")
-        .text("Pie Chart");
-    
-      // Hide the pie chart initially
+    // Convert the data into an array of objects with startAngle and endAngle properties
+    const pieData = d3.pie()(data2);
+
+    // Create an SVG element and set its dimensions for the pie chart
+    const radius = Math.min(width, height) / 2;
+    const svg2 = d3.select("#pie-chart-container")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    // Define the colors for the pie chart
+    const colors = d3.scaleOrdinal()
+      .domain(data2)
+      .range(d3.schemeSet2);
+
+    // Define the arc generator for the pie chart
+    const arcGenerator = d3.arc()
+      .innerRadius(0)
+      .outerRadius(radius);
+
+    // Create the slices of the pie chart
+    const paths = svg2.selectAll("path")
+      .data(pieData)
+      .enter()
+      .append("path")
+      .attr("d", arcGenerator)
+      .attr("fill", (d, i) => colors(i));
+
+    // Add a title
+    svg2.append("text")
+      .attr("x", 0)
+      .attr("y", -radius - 10)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("fill", "white")
+      .text("Pie Chart");
+
+    // Hide the pie chart initially
+    d3.select("#pie-chart-container").style("display", "none");
+
+    // Hide the pie chart initially
+    d3.select("#pie-chart-container").style("display", "none");
+
+    marker.addEventListener("markerLost", () => {
       d3.select("#pie-chart-container").style("display", "none");
+      document.querySelector(".toggle").style.display = "none";
+    });
+  </script>
 
-      marker.addEventListener("markerLost", () => {
-        d3.select("#pie-chart-container").style("display", "none");
-        document.querySelector(".toggle").style.display = "none";
-      });
-    </script>
+</body>
+<!-- this is the CSS -->
+<style>
+  html,
+  body {
+    overflow: hidden;
+  }
 
-  </body>
-  <!-- this is the CSS -->
-  <style>
-    html, body {
-      overflow: hidden;
-    }
-    .buttons {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 5em;
-      gap: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-    }
+  .buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5em;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
 
-    .button {
-      padding: 10px 20px;
-      border-radius: 4px;
-      border: none;
-      background: white;
-      color: black;
-    }
+  .button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background: white;
+    color: black;
+  }
 
-    .toggle {
-      display: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      border: none;
-      background: white;
-      color: black;
-    }
+  .toggle {
+    display: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background: white;
+    color: black;
+  }
 
-    .title {
-      color: white;
-      position: absolute;
-      justify-content: center;
-    }
-  </style>
+  .title {
+    color: white;
+    position: absolute;
+    justify-content: center;
+  }
+</style>
+
 </html>
