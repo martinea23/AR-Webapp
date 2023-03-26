@@ -155,7 +155,7 @@
       .text("Water Usage");
 
     // Hide the chart initially
-    //d3.select("#chart-container").style("display", "none");
+    d3.select("#chart-container").style("display", "none");
 
     // Show the chart when the "hiro" marker is detected
     const marker = document.querySelector("a-marker");
@@ -191,7 +191,7 @@
 
     // Define the colors for the pie chart
     const colors = d3.scaleOrdinal()
-      .domain(date.map(d.name))
+      .domain(data.map(d => d.name))
       .range(d3.schemeSet2);
 
     // Define the arc generator for the pie chart
@@ -200,15 +200,15 @@
       .outerRadius(radius);
 
     // Create the slices of the pie chart
-    const arcs = pieSvg.selectAll("arc")
+    const arcs = svg2.selectAll("arc")
       .data(pie(data))
       .enter()
       .append("g")
       .attr("class", "arc");
 
     arcs.append("path")
-      .attr("d", arc)
-      .attr("fill", (d, i) => d3.schemeCategory10[i])
+      .attr("d", arcGenerator)
+      .attr("fill", (d, i) => colors(d.data.name))
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
