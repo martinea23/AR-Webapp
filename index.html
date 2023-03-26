@@ -212,7 +212,7 @@
       .append("title")
       .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
 
-    const labels = svg.selectAll("text")
+    const labels = svg2.selectAll("text")
       .data(pie(data))
       .enter()
       .append("text")
