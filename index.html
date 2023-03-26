@@ -204,15 +204,16 @@
       .data(pie(data))
       .enter()
       .append("g")
-      .attr("class", "arc")
+      .attr("class", "arc");
+
+    arcs.append("path")
       .attr("d", arcGenerator)
       .attr("fill", (d, i) => colors(d.data.name))
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
       .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
-
-
+      
     // Hide the pie chart initially
     d3.select("#pie-chart-container").style("display", "none");
 
