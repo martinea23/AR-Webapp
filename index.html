@@ -112,14 +112,19 @@
       .attr("text-anchor", "middle")
       .text((d) => d.value);
 
-    //xaxis format
-    const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
+    //x-axis creation
+    const xAxis = d3.axisBottom(x)
+    .tickSizeOuter(0)
+    .tickPadding(10)
+    .tickFormat(function(d) { 
+        return data[d].name;
+    });
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
       .attr("color", "white")
       .call(xAxis);
 
-    //yaxis format
+    //y-axis creation 
     const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
     svg.append("g")
       .attr("color", "white")
