@@ -92,7 +92,7 @@
       .data(data)
       .enter()
       .append("rect")
-      .attr("x", (d, i) => x(i))
+      .attr("x", (d, i) => x(d.name))
       .attr("y", (d) => y(d.value))
       .attr("width", width / data.length)
       .attr("height", (d) => height - y(d.value))
@@ -129,19 +129,6 @@
       .attr("y", height + margin.bottom)
       .attr("text-anchor", "middle")
       .text("Month");
-
-
-    //x-axis creation
-    // const xAxis = d3.axisBottom(x)
-    // .tickSizeOuter(0)
-    // .tickPadding(10)
-    // .tickFormat(function(d) { 
-    //     return data[d].name;
-    // });
-    // svg.append("g")
-    //   .attr("transform", `translate(0, ${height})`)
-    //   .attr("color", "white")
-    //   .call(xAxis);
 
     //y-axis creation 
     const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
