@@ -86,7 +86,7 @@
       .domain([0, d3.max(data, d => d.value)])
       .range([height, 0]);
 
-    // Create the bars of the chart
+    //Create the bars of the chart
     svg.selectAll("rect")
       .data(data)
       .enter()
@@ -99,9 +99,9 @@
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
-      .text((d) => '${d.name}');
+      .text((d) => `${d.name}`);
 
-    // add labels
+    // add labels for easier readings
     svg.selectAll(".bar-label")
       .data(data)
       .enter()
