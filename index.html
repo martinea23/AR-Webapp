@@ -107,8 +107,7 @@
       .attr("class", "bar-label")
       .attr("x", (d, i) => x(d.name) + (width / data.length) / 2)
       .attr("y", (d) => y(d.value) - 5)
-      .attr("text-anchor", "middle")
-      .attr("text-align", "center")
+      .attr("text-anchor", "center")
       .text((d) => d.value);
 
     // Create the x-axis
@@ -124,7 +123,6 @@
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", height + margin.bottom)
-      .attr("text-align", )
       .attr("text-anchor", "center")
       .text("Month");
 
@@ -138,13 +136,13 @@
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", margin.top / 2)
-      .attr("text-anchor", "middle")
+      .attr("text-anchor", "center")
       .style("font-size", "16px")
       .style("fill", "white")
       .text("Water Usage");
 
     // Hide the chart initially
-    //d3.select("#chart-container").style("display", "none");
+    d3.select("#chart-container").style("display", "none");
 
     // Show the chart when the "hiro" marker is detected
     const marker = document.querySelector("a-marker");
