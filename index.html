@@ -93,7 +93,7 @@
       .append("rect")
       .attr("x", (d, i) => x(d.name))
       .attr("y", (d) => y(d.value))
-      .attr("width", width / data.length + 1)
+      .attr("width", width / (data.length + 1))
       .attr("height", (d) => height - y(d.value))
       .attr("fill", "#69b3a2")
       .attr("stroke", "white")
