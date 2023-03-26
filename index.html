@@ -39,7 +39,7 @@
   <!-- this is the stuff on the actual webpage -->
   <div class="buttons">
     <button class="toggle">Toggle Chart</button>
-    <button class="button">Updates</button>
+    <button class="button">Refresh</button>
   </div>
 
   <!-- this is the stuff in AR -->
@@ -147,12 +147,14 @@
     marker.addEventListener("markerFound", () => {
       d3.select("#chart-container").style("display", "block");
       document.querySelector(".toggle").style.display = "block";
+      document.querySelector(".button").style.display = "block";
     });
 
     // Hide the chart when the "hiro" marker is lost
     marker.addEventListener("markerLost", () => {
       d3.select("#chart-container").style("display", "none");
       document.querySelector(".toggle").style.display = "none";
+      document.querySelector(".button").style.display = "block";
     });
 
   </script>
@@ -204,6 +206,7 @@
     marker.addEventListener("markerLost", () => {
       d3.select("#pie-chart-container").style("display", "none");
       document.querySelector(".toggle").style.display = "none";
+      document.querySelector(".button").style.display = "block";
     });
   </script>
 
@@ -238,6 +241,7 @@
     border: none;
     background: white;
     color: black;
+    display: none;
   }
 
   .toggle {
