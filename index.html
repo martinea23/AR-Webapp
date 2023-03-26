@@ -108,7 +108,7 @@
       .enter()
       .append("text")
       .attr("class", "bar-label")
-      .attr("x", (d, i) => x(d,name) + (width / data.length) / 2)
+      .attr("x", (d, i) => x(d.name) + (width / data.length) / 2)
       .attr("y", (d) => y(d.value) - 5)
       .attr("text-anchor", "middle")
       .text((d) => d.value);
