@@ -212,23 +212,6 @@
       .append("title")
       .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
 
-    const labels = svg2.selectAll("text")
-      .data(pie(data))
-      .enter()
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("transform", d => `translate(${arc.centroid(d)})`)
-      .text(d => d.data.name);
-
-
-    // Add a title
-    svg2.append("text")
-      .attr("x", width / 2)
-      .attr("y", -radius - margin.top)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .style("fill", "white")
-      .text("Water Usage");
 
     // Hide the pie chart initially
     d3.select("#pie-chart-container").style("display", "none");
