@@ -86,6 +86,11 @@
       .domain([0, d3.max(data, d => d.value)])
       .range([height, 0]);
 
+
+    const colorScale = d3.scaleOrdinal()
+      .domain(data.map(d => d.name))
+      .range(d3.schemeCategory10);
+
     //Create the bars of the chart
     svg.selectAll("rect")
       .data(data)
@@ -95,7 +100,7 @@
       .attr("y", (d) => y(d.value))
       .attr("width", width / data.length)
       .attr("height", (d) => height - y(d.value))
-      .attr("fill", (d , i) => color(d.data.name))
+      .attr("fill", (d) => colorScale(d.name))
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
@@ -211,10 +216,10 @@
         // calculate the middle angle of the arc
         const angle = (d.startAngle + d.endAngle) / 2;
         // check if the label is upside down
-        const isUpsideDown = angle > Math.PI; 
+        const isUpsideDown = angle > Math.PI;
         // adjust the rotation angle if necessary
-        const rotationAngle = isUpsideDown ? angle * 180 / Math.PI - 90 + 180 : angle * 180 / Math.PI - 90; 
-        
+        const rotationAngle = isUpsideDown ? angle * 180 / Math.PI - 90 + 180 : angle * 180 / Math.PI - 90;
+
         return `translate(${x}, ${y}) rotate(${rotationAngle})`; // rotate the text by the angle
       })
       .attr("text-anchor", "middle")
