@@ -80,7 +80,7 @@
     // Define the scales for the x and y 
     const x = d3.scaleBand()
       .domain(data.map(d => d.name))
-      .range([0, width - width/data.length]);
+      .range([0, width - width / data.length]);
 
     const y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.value)])
@@ -134,6 +134,15 @@
     svg.append("g")
       .attr("color", "white")
       .call(yAxis);
+
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("fill", "white")
+      .text(data[0].units);
 
     //Add a title
     svg.append("text")
