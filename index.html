@@ -15,9 +15,11 @@
       document
         .querySelector(".toggle")
         .addEventListener("click", function () {
+          // basically hide and show figures depending on which one
+          // is being shown now
           const chart = document.querySelector("#chart-container");
           const pieChart = document.querySelector("#pie-chart-container");
-          if (chart.style.display === "none") {
+          if (chart.style.display == "none") {
             chart.style.display = "block";
             pieChart.style.display = "none";
           } else {
@@ -25,7 +27,8 @@
             pieChart.style.display = "block";
           }
         });
-      // listener for updating the data
+      // listener for updating the data in the future
+      // maybe add a visual thing that its working (ex. a loading circle)
       document
         .querySelector(".button")
         .addEventListener("click", function () {
@@ -55,7 +58,7 @@
 
   <!-- this is the bar graph creation -->
   <script>
-    // Define your data
+    // Define data
     // hard coded for now but should be pulled from db in future
     const data = [
       { value: 30, name: "January", units: "g/day" },
@@ -65,6 +68,7 @@
       { value: 303, name: "May", units: "g/day" },
       { value: 350, name: "June", units: "g/day" }];
 
+    // Variables we need to use later on
     const margin = { top: 30, right: 20, bottom: 30, left: 40 };
     const width = 400 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
@@ -86,7 +90,7 @@
       .domain([0, d3.max(data, d => d.value)])
       .range([height, 0]);
 
-
+    // this is what determins the colors of the bars
     const colorScale = d3.scaleOrdinal()
       .domain(data.map(d => d.name))
       .range(d3.schemeSet2);
@@ -96,17 +100,17 @@
       .data(data)
       .enter()
       .append("rect")
-      .attr("x", (d, i) => x(d.name))
-      .attr("y", (d) => y(d.value))
-      .attr("width", width / data.length)
-      .attr("height", (d) => height - y(d.value))
-      .attr("fill", (d) => colorScale(d.name))
+      .attr("x", (d, i) => x(d.name)) // x cord for bar positioning
+      .attr("y", (d) => y(d.value)) // y cord for bar positioning
+      .attr("width", width / data.length) // how wide you want the bar
+      .attr("height", (d) => height - y(d.value)) // how tall you want the bar
+      .attr("fill", (d) => colorScale(d.name)) // setting the actual color
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
-      .text((d) => `${d.name}`);
+      .text((d) => `${d.data.name}`);
 
-    // add labels for easier readings
+    // add value labels for easier readings
     svg.selectAll(".bar-label")
       .data(data)
       .enter()
@@ -121,7 +125,7 @@
     // Create the x-axis
     const xAxis = d3.axisBottom(x);
 
-    // Add x-axis
+    // Attach x-axis
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
       .attr("color", "white")
@@ -141,7 +145,7 @@
       .attr("color", "white")
       .call(yAxis);
 
-    //Add a title
+    //Add a title to top of graph
     svg.append("text")
       .attr("x", (width - margin.left - margin.right) / 2)
       .attr("y", margin.top + 20 / 2)
@@ -172,12 +176,13 @@
 
   <!-- Pie chart Creation -->
   <script>
-    // Convert the data into an array of objects with startAngle and endAngle properties
+    // Convert the data into an array of objects with startAngle and endAngles
     const pie = d3.pie().value(d => d.value).sort(null);
 
     // Create an SVG element and set its dimensions for the pie chart
     const radius = Math.min(width, height) / 2;
 
+    // create the new svg object
     const svg2 = d3.select("#pie-chart-container")
       .append("svg")
       .attr("width", width)
@@ -185,7 +190,7 @@
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    // Define the colors for the pie chart
+    // Define the colors for the pie chart (keep them the same as bar graph)
     const colors = d3.scaleOrdinal()
       .domain(data.map(d => d.name))
       .range(d3.schemeSet2);
@@ -202,6 +207,7 @@
       .append("g")
       .attr("class", "arc");
 
+    // formatting for the arcs
     arcs.append("path")
       .attr("d", arcGenerator)
       .attr("fill", (d, i) => colors(d.data.name))
@@ -210,6 +216,7 @@
       .append("title")
       .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
 
+    // function to help format text inside pie chart pieces
     const text = arcs.append("text")
       .attr("transform", function (d) {
         const [x, y] = arcGenerator.centroid(d);
@@ -219,13 +226,13 @@
         const isUpsideDown = angle > Math.PI;
         // adjust the rotation angle if necessary
         const rotationAngle = isUpsideDown ? angle * 180 / Math.PI - 90 + 180 : angle * 180 / Math.PI - 90;
-
         return `translate(${x}, ${y}) rotate(${rotationAngle})`; // rotate the text by the angle
       })
-      .attr("text-anchor", "middle")
-      .style("fill", "white")
-      .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`);
+      .attr("text-anchor", "middle") // want the text in the middle
+      .style("fill", "black")
+      .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`); // actual text we want
 
+    // add a title to pie chart
     svg2.append("text")
       .attr("x", 0)
       .attr("y", margin.top / 2)
@@ -238,6 +245,7 @@
     // Hide the pie chart initially
     d3.select("#pie-chart-container").style("display", "none");
 
+    // when we lose the marker lets hide everything again
     marker.addEventListener("markerLost", () => {
       d3.select("#pie-chart-container").style("display", "none");
       document.querySelector(".toggle").style.display = "none";
