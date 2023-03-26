@@ -77,11 +77,11 @@
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // Define the scales for  x and y 
+    // Define the scales for the x and y 
     const x = d3.scaleBand()
       .domain(data.map(d => d.name))
-      .range([0, width - width/data.length])
-      
+      .range([0, width - width/data.length]);
+
     const y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.value)])
       .range([height, 0]);
@@ -93,11 +93,13 @@
       .append("rect")
       .attr("x", (d, i) => x(d.name))
       .attr("y", (d) => y(d.value))
-      .attr("width", width / (data.length + 1))
+      .attr("width", width / data.length)
       .attr("height", (d) => height - y(d.value))
       .attr("fill", "#69b3a2")
       .attr("stroke", "white")
-      .attr("stroke-width", 1);
+      .attr("stroke-width", 1)
+      .append("title")
+      .text((d) => `${d.name}`);
 
     // add labels for easier readings
     svg.selectAll(".bar-label")
@@ -142,7 +144,7 @@
       .text("Water Usage");
 
     // Hide the chart initially
-    d3.select("#chart-container").style("display", "none");
+    //d3.select("#chart-container").style("display", "none");
 
     // Show the chart when the "hiro" marker is detected
     const marker = document.querySelector("a-marker");
