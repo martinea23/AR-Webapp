@@ -8,15 +8,6 @@
     <script>
       window.onload = function () {
         document
-          .querySelector(".button")
-          .addEventListener("click", function () {
-            alert("This Will Change the scene and or update data");
-          });
-      };
-    </script> 
-    <script>
-      window.onload = function () {
-        document
           .querySelector(".toggle")
           .addEventListener("click", function () {
             const chart = document.querySelector("#chart-container");
@@ -25,6 +16,12 @@
             } else {
               chart.style.display = "none";
             }
+          });
+
+        document
+          .querySelector(".button")
+          .addEventListener("click", function () {
+            alert("This Will Change the scene and or update data");
           });
       };
     </script> 
@@ -111,11 +108,13 @@
       const marker = document.querySelector("a-marker");
       marker.addEventListener("markerFound", () => {
         d3.select("#chart-container").style("display", "block");
+        document.querySelector(".toggle").style("display", "block");
       });
 
       // Hide the chart when the "hiro" marker is lost
       marker.addEventListener("markerLost", () => {
         d3.select("#chart-container").style("display", "none");
+        document.querySelector(".toggle").style("display", "none");
       });
       
     </script>
@@ -147,6 +146,7 @@
     }
 
     .toggle {
+      display: none;
       padding: 10px 20px;
       border-radius: 4px;
       border: none;
