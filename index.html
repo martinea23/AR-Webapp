@@ -136,16 +136,6 @@
       .attr("color", "white")
       .call(yAxis);
 
-    // add label to y axis
-    // svg.append("text")
-    //   .attr("transform", "rotate(-90)")
-    //   .attr("y", 0 - (margin.left+20))
-    //   .attr("x", 0 - (height / 2))
-    //   .attr("dy", "1em")
-    //   .style("text-anchor", "middle")
-    //   .style("fill", "white")
-    //   .text(data[0].units);
-
     //Add a title
     svg.append("text")
       .attr("x", (width - margin.left - margin.right) / 2)
@@ -228,7 +218,6 @@
         return `translate(${x}, ${y}) rotate(${rotationAngle})`; // rotate the text by the angle
       })
       .attr("text-anchor", "middle")
-      .style("font-size", "12px")
       .style("fill", "white")
       .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`);
 
