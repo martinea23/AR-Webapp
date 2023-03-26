@@ -107,7 +107,7 @@
       .enter()
       .append("text")
       .attr("class", "bar-label")
-      .attr("x", (d, i) => x(d.name) + (width / data.length) / 2)
+      .attr("x", (d, i) => x(d.name) + ((width - margin.left - margin.right) / data.length) / 2)
       .attr("y", (d) => y(d.value) - 5)
       .attr("text-anchor", "middle")
       .text((d) => d.value);
@@ -136,7 +136,7 @@
 
     //Add a title
     svg.append("text")
-      .attr("x", width / 2)
+      .attr("x", (width - margin.left - margin.right) / 2)
       .attr("y", margin.top / 2)
       .attr("text-anchor", "middle")
       .style("font-size", "16px")
