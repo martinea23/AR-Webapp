@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <!-- Libraries we need to use -->
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
@@ -82,7 +83,7 @@
       .range([0, width]);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(data)])
+      .domain([0, d3.max(data, d => d.value)])
       .range([height, 0]);
 
     // Create the bars of the chart
