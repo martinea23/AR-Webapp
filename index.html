@@ -98,7 +98,7 @@
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
-      .text((d) => d.name);
+      .text((d) => '${d.name}');
 
     //xaxis format
     const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
