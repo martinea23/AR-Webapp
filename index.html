@@ -78,9 +78,10 @@
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     // Define the scales for the x and y axes
-    const x = d3.scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, width]);
+    const x = d3.scaleBand()
+      .domain(data.map(d => d.name))
+      .range([0, width])
+      .padding(0.2);
 
     const y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.value)])
@@ -111,6 +112,24 @@
       .attr("y", (d) => y(d.value) - 5)
       .attr("text-anchor", "middle")
       .text((d) => d.value);
+
+
+
+    // Create the x-axis
+    const xAxis = d3.axisBottom(x);
+
+    // Append the x-axis to the SVG element
+    svg.append("g")
+      .attr("transform", `translate(0, ${height})`)
+      .call(xAxis);
+
+    // Add a label to the x-axis
+    svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom)
+      .attr("text-anchor", "middle")
+      .text("Month");
+
 
     //x-axis creation
     // const xAxis = d3.axisBottom(x)
@@ -218,7 +237,7 @@
     overflow: hidden;
   }
 
-  svg{
+  svg {
     overflow: visible;
   }
 
