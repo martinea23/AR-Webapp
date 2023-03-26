@@ -55,7 +55,15 @@
   <!-- this is the bar graph creation -->
   <script>
     // Define your data
-    const data = [30, 86, 168, 281, 303, 365];
+    // hard coded for now but should be pulled from db in future
+    const data = [
+      {value: 30, name: "January", units: "g/day"},
+      {value: 86, name: "February", units: "g/day"}, 
+      {value: 181, name: "March", units: "g/day"}, 
+      {value: 220, name: "April", units: "g/day"}, 
+      {value: 303, name: "May", units: "g/day"}, 
+      {value: 350, name: "June", units: "g/day"}];
+
     const margin = { top: 10, right: 20, bottom: 30, left: 40 };
     const width = 400 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
@@ -83,12 +91,14 @@
       .enter()
       .append("rect")
       .attr("x", (d, i) => x(i))
-      .attr("y", (d) => y(d))
+      .attr("y", (d) => y(d.value))
       .attr("width", width / data.length)
-      .attr("height", (d) => height - y(d))
+      .attr("height", (d) => height - y(d.value))
       .attr("fill", "#69b3a2")
       .attr("stroke", "white")
-      .attr("stroke-width", 1);
+      .attr("stroke-width", 1)
+      .append("title")
+      .text((d) => d.name);
 
     //xaxis format
     const xAxis = d3.axisBottom(x).tickSizeOuter(0).tickPadding(10);
