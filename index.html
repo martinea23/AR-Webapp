@@ -136,14 +136,14 @@
       .call(yAxis);
 
     // add label to y axis
-    svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - (margin.left+20))
-      .attr("x", 0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("fill", "white")
-      .text(data[0].units);
+    // svg.append("text")
+    //   .attr("transform", "rotate(-90)")
+    //   .attr("y", 0 - (margin.left+20))
+    //   .attr("x", 0 - (height / 2))
+    //   .attr("dy", "1em")
+    //   .style("text-anchor", "middle")
+    //   .style("fill", "white")
+    //   .text(data[0].units);
 
     //Add a title
     svg.append("text")
@@ -177,10 +177,11 @@
   <!-- Pie chart Creation -->
   <script>
     // Convert the data into an array of objects with startAngle and endAngle properties
-    const pie = d3.pie().value(d.value);
+    const pie = d3.pie().value(d => d.value).sort(null);
 
     // Create an SVG element and set its dimensions for the pie chart
     const radius = Math.min(width, height) / 2;
+
     const svg2 = d3.select("#pie-chart-container")
       .append("svg")
       .attr("width", width)
@@ -199,12 +200,19 @@
       .outerRadius(radius);
 
     // Create the slices of the pie chart
-    const paths = svg2.selectAll("path")
+    const arcs = pieSvg.selectAll("arc")
       .data(pie(data))
       .enter()
-      .append("path")
-      .attr("d", arcGenerator)
-      .attr("fill", (d, i) => colors(i));
+      .append("g")
+      .attr("class", "arc");
+
+    arcs.append("path")
+      .attr("d", arc)
+      .attr("fill", (d, i) => d3.schemeCategory10[i])
+      .attr("stroke", "white")
+      .attr("stroke-width", 1)
+      .append("title")
+      .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
 
     // Add a title
     svg2.append("text")
