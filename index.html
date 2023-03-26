@@ -77,7 +77,7 @@
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // Define the scales for the x and y axes
+    // Define the scales for  x and y 
     const x = d3.scaleBand()
       .domain(data.map(d => d.name))
       .range([0, width - width/data.length]);
@@ -98,8 +98,7 @@
       .attr("fill", "#69b3a2")
       .attr("stroke", "white")
       .attr("stroke-width", 1)
-      .append("title")
-      .text((d) => `${d.name}`);
+      
 
     // add labels for easier readings
     svg.selectAll(".bar-label")
