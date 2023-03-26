@@ -110,6 +110,7 @@
       .attr("x", (d, i) => x(d.name) + (width / data.length) / 2)
       .attr("y", (d) => y(d.value) - 5)
       .attr("text-anchor", "middle")
+      .style("fill", "white")
       .text((d) => d.value);
 
     // Create the x-axis
@@ -217,13 +218,15 @@
     const text = arcs.append("text")
       .attr("transform", function (d) {
         const [x, y] = arcGenerator.centroid(d);
-        return `translate(${x}, ${y})`;
+        // calculate the middle angle of the arc
+        const angle = (d.startAngle + d.endAngle) / 2;
+        // rotate the text by the angle
+        return `translate(${x}, ${y}) rotate(${angle * 180 / Math.PI - 90})`; 
       })
       .attr("text-anchor", "middle")
-      .attr("transform", "rotate(-45)")
       .style("font-size", "12px")
       .style("fill", "white")
-      .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}` );
+      .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`);
 
     svg2.append("text")
       .attr("x", 0)
