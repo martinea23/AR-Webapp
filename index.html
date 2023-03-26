@@ -89,7 +89,7 @@
 
     const colorScale = d3.scaleOrdinal()
       .domain(data.map(d => d.name))
-      .range(d3.schemeCategory10);
+      .range(d3.schemeSet2);
 
     //Create the bars of the chart
     svg.selectAll("rect")
