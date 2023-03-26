@@ -121,11 +121,12 @@
       .attr("color", "white")
       .call(xAxis);
 
-    // Add labels to x-axis
+    // Add label to x-axis
     svg.append("text")
       .attr("x", (width - margin.left - margin.right) / 2)
-      .attr("y", height + margin.bottom)
+      .attr("y", height - margin.bottom)
       .attr("text-anchor", "middle")
+      .style("fill", "white")
       .text("Month");
 
     //y-axis creation 
