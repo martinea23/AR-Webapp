@@ -113,16 +113,16 @@
       .text((d) => d.value);
 
     //x-axis creation
-    const xAxis = d3.axisBottom(x)
-    .tickSizeOuter(0)
-    .tickPadding(10)
-    .tickFormat(function(d) { 
-        return data[d].name;
-    });
-    svg.append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .attr("color", "white")
-      .call(xAxis);
+    // const xAxis = d3.axisBottom(x)
+    // .tickSizeOuter(0)
+    // .tickPadding(10)
+    // .tickFormat(function(d) { 
+    //     return data[d].name;
+    // });
+    // svg.append("g")
+    //   .attr("transform", `translate(0, ${height})`)
+    //   .attr("color", "white")
+    //   .call(xAxis);
 
     //y-axis creation 
     const yAxis = d3.axisLeft(y).tickSizeOuter(0).tickPadding(10);
