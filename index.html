@@ -65,7 +65,7 @@
       { value: 303, name: "May", units: "g/day" },
       { value: 350, name: "June", units: "g/day" }];
 
-    const margin = { top: 10, right: 20, bottom: 30, left: 40 };
+    const margin = { top: 30, right: 20, bottom: 30, left: 40 };
     const width = 400 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 
@@ -80,7 +80,7 @@
     // Define the scales for the x and y axes
     const x = d3.scaleBand()
       .domain(data.map(d => d.name))
-      .range([0, width])
+      .range([0, width - width/data.length])
       .padding(0.2);
 
     const y = d3.scaleLinear()
@@ -113,17 +113,16 @@
       .attr("text-anchor", "middle")
       .text((d) => d.value);
 
-
-
     // Create the x-axis
     const xAxis = d3.axisBottom(x);
 
-    // Append the x-axis to the SVG element
+    // Add x-axis
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
+      .attr("color", "white")
       .call(xAxis);
 
-    // Add a label to the x-axis
+    // Add labels to x-axis
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", height + margin.bottom)
@@ -160,7 +159,7 @@
     marker.addEventListener("markerLost", () => {
       d3.select("#chart-container").style("display", "none");
       document.querySelector(".toggle").style.display = "none";
-      document.querySelector(".button").style.display = "block";
+      document.querySelector(".button").style.display = "none";
     });
 
   </script>
