@@ -80,7 +80,8 @@
     // Define the scales for  x and y 
     const x = d3.scaleBand()
       .domain(data.map(d => d.name))
-      .range([0, width - width/data.length]);
+      .range([0, width - width/data.length])
+      .padding(.05);
 
     const y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.value)])
