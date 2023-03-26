@@ -123,7 +123,7 @@
 
     // Add labels to x-axis
     svg.append("text")
-      .attr("x", (width + margin.left + margin.right) / 2)
+      .attr("x", (width - margin.left - margin.right) / 2)
       .attr("y", height + margin.bottom)
       .attr("text-anchor", "middle")
       .text("Month");
