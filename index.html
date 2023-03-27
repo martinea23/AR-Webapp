@@ -236,9 +236,11 @@
     // add a title to pie chart
     svg2.append("text")
       .attr("x", 0)
-      .attr("y", -radius)
+      .attr("y", -radius - 10)
       .attr("text-anchor", "middle")
       .style("font-size", "30 px")
+      .style("font-size", "30px")
+      .style("font-weight", "bold")
       .style("fill", "white")
       .text("Water Usage");
 
