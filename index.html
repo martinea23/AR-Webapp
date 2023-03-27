@@ -36,6 +36,50 @@
         });
     };
   </script>
+  <!-- delete this tab to uncomment
+  <script >
+      
+    /*
+    Gets/Updates the data for the given sensor
+    @params - NONE
+    @returns - [ [value1, value2...valuen], "name_of_sensor", "sensor_type"]
+    */
+
+    function updateData() {
+      //Initialize xhr
+      const xhr = new XMLHttpRequest();
+      //Establish URL for local host this will have to be changed later
+      const url = "http://127.0.0.1:5000/sensors/" + {{sid}} ;
+      //Esablish as a get request
+      xhr.open("GET", url, true);
+
+      
+      //Check if there ahs been a response yet
+      xhr.onreadystatechange = function() {
+
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+            responseJSON =  JSON.parse(xhr.responseText);
+            //Esablish Array to return
+            let valArray = [[],responseJSON.name]
+            responseJSON.data.forEach(function(item){
+              //Add the units to the array
+              if(valArray.length < 3){
+                valArray.push(item.units)
+              }
+              //Push the values
+              valArray[0].push(item.value)
+
+            });
+
+            return valArray;
+        }
+      };
+      //Send the Get request
+      xhr.send();
+    }
+  </script>
+  -->
 </head>
 
 <body>
