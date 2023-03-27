@@ -32,20 +32,7 @@
       document
         .querySelector(".button")
         .addEventListener("click", function () {
-          // Hide chart containers
-          const chart = document.querySelector("#chart-container");
-          const pieChart = document.querySelector("#pie-chart-container");
-          const LoadMsg = document.querySelector("#LoadMsg");
-          const LoadMsg2 = document.querySelector("#LoadMsg2");
-
-          chart.style.display = "none";
-          pieChart.style.display = "none";
-          LoadMsg.style.display = "block";
-
-          setTimeout(function () {
-            LoadMsg.style.display = "none";
-            LoadMsg2.style.display = "block";
-          }, 1500); // wait for 1.5 seconds before removing the message
+          alert("This Will Change the scene and or update data");
         });
     };
   </script>
@@ -57,9 +44,6 @@
     <button class="toggle">Toggle Chart</button>
     <button class="button">Refresh</button>
   </div>
-  
-  <h1 class="LoadMsg"> Loading........</h1>
-  <h1 class="LoadMsg2"> Ready! Press Toggle</h1>
 
   <!-- this is the stuff in AR -->
   <a-scene embedded arjs>
@@ -124,6 +108,7 @@
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
+      .padding(0.1)
       .text((d) => `${d.name}`);
 
     // add value labels for easier readings
@@ -281,6 +266,7 @@
   svg {
     overflow: visible;
   }
+
   .buttons {
     position: absolute;
     bottom: 0;
@@ -292,19 +278,6 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
-  }
-
-  .LoadMsg {
-    position: fixed;
-    top: 50%;
-    left: 45%;
-    display: none;
-  }
-  .LoadMsg2 {
-    position: fixed;
-    top: 50%;
-    left: 45%;
-    display: none;
   }
 
   .button {
