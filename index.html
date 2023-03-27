@@ -189,7 +189,7 @@
       .attr("width", width)
       .attr("height", height + 100)
       .append("g")
-      .attr("transform", `translate(${width / 2}, ${height / 2})`);
+      .attr("transform", `translate(${width / 2}, ${height - 100/ 2})`);
 
     // Define the colors for the pie chart (keep them the same as bar graph)
     const colors = d3.scaleOrdinal()
