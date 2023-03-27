@@ -37,10 +37,7 @@
           const pieChart = document.querySelector("#pie-chart-container");
           chart.style.display = "none";
           pieChart.style.display = "none";
-
-          const loadingIcon = document.querySelector("#loading-icon");
-          loadingIcon.style.display = "block"; // show the loading icon
-
+          alert("Loading..............");
           setTimeout(function () {
             // Hide loading icon
             loadingIcon.style.display = "none"; // hide the loading icon
@@ -72,9 +69,6 @@
       <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
         <div id="chart-container"></div>
         <div id="pie-chart-container"></div>
-        <div id="loading-icon" style="display: none;">
-          <i class="fas fa-spinner fa-spin"></i>
-        </div>
       </a-entity>
     </a-marker>
     <a-entity camera></a-entity>
