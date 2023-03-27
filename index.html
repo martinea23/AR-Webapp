@@ -37,10 +37,11 @@
           const pieChart = document.querySelector("#pie-chart-container");
           chart.style.display = "none";
           pieChart.style.display = "none";
+          LoadMsg.style.display = "block"
 
           setTimeout(function () {
-            // Hide loading icon
-            LoadMsg.style.display = "none"; // hide the loading icon
+            LoadMsg.style.display = "none";
+            LoadMsg2.style.display = "block"
           }, 1500); // wait for 1.5 seconds before removing the message
         });
     };
@@ -55,6 +56,7 @@
   </div>
   
   <h1 class="LoadMsg"> Loading........</h1>
+  <h1 class="LoadMsg2"> Ready! Press Toggle</h1>
 
   <!-- this is the stuff in AR -->
   <a-scene embedded arjs>
@@ -293,6 +295,13 @@
     position: fixed;
     top: 50%;
     left: 45%;
+    display: none;
+  }
+  .LoadMsg2 {
+    position: fixed;
+    top: 50%;
+    left: 45%;
+    display: none;
   }
 
   .button {
