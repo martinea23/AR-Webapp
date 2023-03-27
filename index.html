@@ -37,20 +37,11 @@
           const pieChart = document.querySelector("#pie-chart-container");
           chart.style.display = "none";
           pieChart.style.display = "none";
-          alert("Loading..............");
+
           setTimeout(function () {
             // Hide loading icon
-            loadingIcon.style.display = "none"; // hide the loading icon
-
-            // Show the updated chart
-            if (chart.style.display == "none") {
-              chart.style.display = "block";
-              pieChart.style.display = "none";
-            } else {
-              chart.style.display = "none";
-              pieChart.style.display = "block";
-            }
-          }, 3000); // wait for 3 seconds before showing the chart
+            LoadMsg.style.display = "none"; // hide the loading icon
+          }, 1500); // wait for 1.5 seconds before removing the message
         });
     };
   </script>
@@ -62,6 +53,8 @@
     <button class="toggle">Toggle Chart</button>
     <button class="button">Refresh</button>
   </div>
+  
+  <h1 class="LoadMsg"> Loading........</h1>
 
   <!-- this is the stuff in AR -->
   <a-scene embedded arjs>
@@ -283,7 +276,6 @@
   svg {
     overflow: visible;
   }
-
   .buttons {
     position: absolute;
     bottom: 0;
@@ -295,6 +287,12 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
+  }
+
+  .LoadMsg {
+    position: fixed;
+    top: 50%;
+    left: 45%;
   }
 
   .button {
