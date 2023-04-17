@@ -126,6 +126,7 @@
       <p>This button is what changes the graph type, currently we have a Bar Graph and a Pie chart</p>
       <h4>Refresh</h4>
       <p>This button is what Updates the data to the most recent values collected</p>
+      
       <button id="closeModal">Close</button>
     </div>
   </div>
@@ -368,13 +369,14 @@
   }
 
   #modal {
-    display: block;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
   }
 
   #modalContent {
@@ -384,7 +386,7 @@
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
-    max-height: 80vh;
+    max-height: 80%;
     overflow-y: auto;
   }
 
