@@ -38,8 +38,8 @@
   </script>
   <script>
     var modal = document.getElementById("myModal");
-    var btn = document.getElementById("help");
-    var span = document.getElementsByClassName("close")[0];
+    var btn = document.querySelector("#help")
+    var span = document.querySelector("#close");
 
     btn.onclick = function () {
       modal.style.display = "block";
