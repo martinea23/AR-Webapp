@@ -138,6 +138,8 @@
       <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
         <div id="chart-container"></div>
         <div id="pie-chart-container"></div>
+        <div id="pie-legend"></div>
+
       </a-entity>
     </a-marker>
     <a-entity camera></a-entity>
@@ -341,6 +343,25 @@
       document.querySelector(".toggle").style.display = "none";
       document.querySelector(".button").style.display = "none";
     });
+
+    const legend = d3.select("#pie-legend")
+    .append("ul")
+    .attr("class", "legend")
+    .selectAll("li")
+    .data(data)
+    .enter()
+    .append("li")
+    .html(function(d) {
+      return '<span style="background-color:' + color(d.label) + '"></span>' + d.label;
+    });
+
+  // Style the legend
+  legend.selectAll("span")
+    .attr("class", "legend-color")
+    .style("display", "inline-block")
+    .style("width", "12px")
+    .style("height", "12px")
+    .style("margin-right", "5px");
   </script>
 
 </body>
@@ -350,6 +371,24 @@
   body {
     overflow: hidden;
   }
+  #pie-legend {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.legend-color {
+  vertical-align: middle;
+  margin-right: 5px;
+}
 
   svg {
     overflow: visible;
