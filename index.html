@@ -120,7 +120,7 @@
         is seen by the camera it will show the graphs created from the data in our database.
       </p>
       <h3 class="subtitle">Help</h3>
-      <p class="desc"> There are 2 buttons once the marker is found that you can interact with a Toggle Chart
+      <p class="desc"> Once the marker is found by the camera, there are two buttons you can interact with, a Toggle Chart
         and a Refresh button.
       </p>
       <h4 class="subtitle">Toggle</h4>
@@ -234,16 +234,6 @@
       .attr("color", "white")
       .call(yAxis);
 
-    //Add a title to top of graph
-    // svg.append("text")
-    //   .attr("x", (width - margin.left - margin.right) / 2)
-    //   .attr("y", margin.top + 20 / 2)
-    //   .attr("text-anchor", "middle")
-    //   .style("font-size", "30px")
-    //   .style("font-weight", "bold")
-    //   .style("fill", "white")
-    //   .text("Water Usage");
-
     // Hide the chart initially
     d3.select("#chart-container").style("display", "none");
 
@@ -322,18 +312,6 @@
       .style("fill", "black")
       .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`); // actual text we want
 
-    // add a title to pie chart
-    // svg2.append("text")
-    //   .attr("x", 0)
-    //   .attr("y", -radius - 10)
-    //   .attr("text-anchor", "middle")
-    //   .style("font-size", "30 px")
-    //   .style("font-size", "30px")
-    //   .style("font-weight", "bold")
-    //   .style("fill", "white")
-    //   .text("Water Usage");
-
-
     // Hide the pie chart initially
     d3.select("#pie-chart-container").style("display", "none");
 
@@ -375,16 +353,17 @@
   body {
     overflow: hidden;
   }
+
   #chart-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-}
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+  }
 
   svg {
     overflow: visible;
@@ -404,9 +383,12 @@
     outline: none;
     cursor: pointer;
   }
+  .help:hover{
+    background-color: orange;
+  }
 
   #modal {
-    display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -425,16 +407,21 @@
     padding: 20px;
     max-height: 80%;
     overflow-y: auto;
+    font-family: 'Montserrat', sans-serif;
   }
 
   #closeModal {
-    margin-top: 20px;
-    color: red;
-    background-color: #000;
-    margin-left: 45%;
-
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #008CBA;
+    color: white;
+    border-color: #008CBA;
   }
 
+  #closeModal:hover{
+    background-color: orange;
+  }
   .buttons {
     position: absolute;
     bottom: 0;
@@ -468,7 +455,7 @@
 
   #TITLE {
     text-align: center;
-
+    text-decoration: underline;
   }
 
   .title {
