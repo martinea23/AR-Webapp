@@ -136,10 +136,10 @@
   <a-scene embedded arjs>
     <a-marker preset="hiro">
       <a-entity htmlembed position="0 0 0" rotation="-90 0 0">
+        <div id="chart-title">Water Usage</div>
         <div id="chart-container"></div>
         <div id="pie-chart-container"></div>
         <div id="pie-legend-cont"></div>
-
       </a-entity>
     </a-marker>
     <a-entity camera></a-entity>
@@ -345,26 +345,26 @@
     });
 
     // create a legend
-    const legend = d3.select("#pie-legend-cont")
-      .append("svg")
-      .attr("width", 200)
-      .attr("height", 100)
-      .selectAll("g")
-      .data(pieData)
-      .enter()
-      .append("g")
-      .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+    // const legend = d3.select("#pie-legend-cont")
+    //   .append("svg")
+    //   .attr("width", 200)
+    //   .attr("height", 100)
+    //   .selectAll("g")
+    //   .data(pieData)
+    //   .enter()
+    //   .append("g")
+    //   .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
 
-    legend.append("rect")
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", function (d) { return color(d.data.label); });
+    // legend.append("rect")
+    //   .attr("width", 18)
+    //   .attr("height", 18)
+    //   .style("fill", function (d) { return color(d.data.label); });
 
-    legend.append("text")
-      .attr("x", 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .text(function (d) { return d.data.label; });
+    // legend.append("text")
+    //   .attr("x", 24)
+    //   .attr("y", 9)
+    //   .attr("dy", ".35em")
+    //   .text(function (d) { return d.data.label; });
 
   </script>
 
@@ -375,25 +375,15 @@
   body {
     overflow: hidden;
   }
-
-  #pie-legend {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .legend li {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-
-  .legend-color {
-    vertical-align: middle;
-    margin-right: 5px;
-  }
+  #chart-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
   svg {
     overflow: visible;
