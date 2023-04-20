@@ -235,14 +235,14 @@
       .call(yAxis);
 
     //Add a title to top of graph
-    svg.append("text")
-      .attr("x", (width - margin.left - margin.right) / 2)
-      .attr("y", margin.top + 20 / 2)
-      .attr("text-anchor", "middle")
-      .style("font-size", "30px")
-      .style("font-weight", "bold")
-      .style("fill", "white")
-      .text("Water Usage");
+    // svg.append("text")
+    //   .attr("x", (width - margin.left - margin.right) / 2)
+    //   .attr("y", margin.top + 20 / 2)
+    //   .attr("text-anchor", "middle")
+    //   .style("font-size", "30px")
+    //   .style("font-weight", "bold")
+    //   .style("fill", "white")
+    //   .text("Water Usage");
 
     // Hide the chart initially
     d3.select("#chart-container").style("display", "none");
@@ -323,15 +323,15 @@
       .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`); // actual text we want
 
     // add a title to pie chart
-    svg2.append("text")
-      .attr("x", 0)
-      .attr("y", -radius - 10)
-      .attr("text-anchor", "middle")
-      .style("font-size", "30 px")
-      .style("font-size", "30px")
-      .style("font-weight", "bold")
-      .style("fill", "white")
-      .text("Water Usage");
+    // svg2.append("text")
+    //   .attr("x", 0)
+    //   .attr("y", -radius - 10)
+    //   .attr("text-anchor", "middle")
+    //   .style("font-size", "30 px")
+    //   .style("font-size", "30px")
+    //   .style("font-weight", "bold")
+    //   .style("fill", "white")
+    //   .text("Water Usage");
 
 
     // Hide the pie chart initially
@@ -383,6 +383,7 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+  color: white;
 }
 
   svg {
