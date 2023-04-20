@@ -106,9 +106,8 @@
   <div class="buttons">
     <button class="toggle">Toggle Chart</button>
     <button class="button">Refresh</button>
-    <button class="help">?</button>
-
   </div>
+ <button class="help">?</button>
   <!-- THIS IS THE HELP MENU-->
   <div id="modal">
     <div id="modalContent">
@@ -380,6 +379,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+    z-index: 3;
   }
   .help:hover{
     background-color: orange;
@@ -431,7 +431,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    z-index: 1;
+  
   }
 
   .button {
@@ -462,8 +463,6 @@
     position: absolute;
     justify-content: center;
   }
-
-  .desc {}
 
   #Tdesc {
     text-align: center;
