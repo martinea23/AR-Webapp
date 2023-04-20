@@ -319,12 +319,23 @@
       document.querySelector(".button").style.display = "none";
     });
 
-    const legendRect = svg.append("rect")
-    .attr("x", 0)
-    .attr("y", height + margin.bottom + 10)
-    .attr("width", width)
-    .attr("height", 100)
-    .attr("fill", "brown");
+    function showDataName(data) {
+      d3.select("#pie-legend-cont")
+        .append("div")
+        .attr("class", "data-name")
+        .text(data.name)
+        .style("left", event.pageX + "px")
+        .style("top", event.pageY + "px");
+    }
+
+    // Create the pie chart pieces
+svgPie.selectAll("path")
+.data(pie(data))
+.enter()
+.append("path")
+.attr("d", arc)
+.attr("fill", (d) => colorScale(d.data.name))
+.on("click", (event, d) => showDataName(d.data));
 
   </script>
 
