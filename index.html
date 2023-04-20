@@ -56,6 +56,22 @@
           mess.style.display = "none";
         })
 
+        document
+        .querySelector(".legend")
+        .addEventListener("click", function () {
+          const mess = document.querySelector(".legend-cont")
+          mess.style.display = "block";
+        })
+
+        document
+        .querySelector("#legendClose")
+        .addEventListener("click", function () {
+          const mess = document.querySelector(".legend-cont")
+          mess.style.display = "none";
+        })
+      
+        
+      
     }
   </script>
   <!-- delete this tab to uncomment
@@ -138,6 +154,7 @@
 
   <div class="legend-cont">
     <h1 id="Ltitle">LEGEND</h1>
+    <button id="legendClose">Close</button>
   </div>
 
 
