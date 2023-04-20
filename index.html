@@ -153,6 +153,7 @@
   </div>
 
   <div class="legend-cont">
+  <div class="legend-content">
     <h1 id="Ltitle">LEGEND</h1>
     <ul>
       <li><span class="legend-color" style="background-color: red;"></span>Red Data</li>
@@ -160,6 +161,7 @@
       <li><span class="legend-color" style="background-color: green;"></span>Green Data</li>
     </ul>
     <button id="legendClose">Close</button>
+  </div>
   </div>
 
 
@@ -414,8 +416,6 @@
     z-index: 2;
   }
 
-
-
   #modalContent {
     position: absolute;
     top: 50%;
@@ -453,6 +453,18 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
+  }
+
+  .legendcontent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    max-height: 80%;
+    overflow-y: auto;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .buttons {
