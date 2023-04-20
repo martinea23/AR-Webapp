@@ -319,17 +319,12 @@
       document.querySelector(".button").style.display = "none";
     });
 
-    // create a legend
-    const legend = d3.legendColor()
-    .shapeWidth(20)
-    .scale(colorScale)
-    .orient("horizontal");
-  
-  svg.append("g")
-    .attr("class", "legend")
-    .attr("transform", `translate(0, ${height + margin.bottom})`)
-    .call(legend);
-  
+    const legendRect = svg.append("rect")
+    .attr("x", 0)
+    .attr("y", height + margin.bottom + 10)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("fill", "brown");
 
   </script>
 
