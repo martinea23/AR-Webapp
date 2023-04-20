@@ -107,7 +107,7 @@
     <button class="toggle">Toggle Chart</button>
     <button class="button">Refresh</button>
   </div>
-  <button class="help">?</button>
+ <button class="help">?</button>
   <!-- THIS IS THE HELP MENU-->
   <div id="modal">
     <div id="modalContent">
@@ -119,8 +119,7 @@
         is seen by the camera it will show the graphs created from the data in our database.
       </p>
       <h3 class="subtitle">Help</h3>
-      <p class="desc"> Once the marker is found by the camera, there are two buttons you can interact with, a Toggle
-        Chart
+      <p class="desc"> Once the marker is found by the camera, there are two buttons you can interact with, a Toggle Chart
         and a Refresh button.
       </p>
       <h4 class="subtitle">Toggle</h4>
@@ -252,7 +251,7 @@
       document.querySelector(".button").style.display = "none";
     });
 
-    // Pie chart Creation -->
+  // Pie chart Creation -->
 
     // Convert the data into an array of objects with startAngle and endAngles
     const pie = d3.pie().value(d => d.value).sort(null);
@@ -322,14 +321,16 @@
 
     // create a legend
     const legend = d3.legendColor()
-      .shapeWidth(20)
-      .scale(colorScale)
-      .orient("horizontal");
+    .shapeWidth(20)
+    .scale(colorScale)
+    .orient("horizontal");
+  
+  svg.append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(0, ${height + margin.bottom})`)
+    .call(legend);
+  
 
-    svg.append("g")
-      .attr("class", "legend")
-      .attr("transform", `translate(0, ${height + margin.bottom})`)
-      .call(legend);
   </script>
 
 </body>
@@ -348,6 +349,12 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
+    color: white;
+  }
+  #pie-legend-cont{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
     color: white;
   }
 
@@ -370,8 +377,7 @@
     cursor: pointer;
     z-index: 3;
   }
-
-  .help:hover {
+  .help:hover{
     background-color: orange;
   }
 
@@ -410,10 +416,9 @@
     font-size: large;
   }
 
-  #closeModal:hover {
+  #closeModal:hover{
     background-color: orange;
   }
-
   .buttons {
     position: absolute;
     bottom: 0;
@@ -425,7 +430,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-
+  
   }
 
   .button {
@@ -456,15 +461,12 @@
     position: absolute;
     justify-content: center;
   }
-
-  .subtitle {
+  .subtitle{
     text-align: center;
   }
-
-  .desc {
+  .desc{
     text-align: center;
   }
-
   #Tdesc {
     text-align: center;
   }
