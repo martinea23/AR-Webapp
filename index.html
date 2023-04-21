@@ -358,7 +358,7 @@
       .enter()
       .append("li")
       .html(function (d) {
-        return "<svg width='10' height='10'><rect width='10' height='10' fill='     " + colors(d.name) + "'></rect></svg>" + d.name + ": " + d.value + d.units;
+        return "<svg width='10' height='10'><rect width='10' height='10' fill='" + colors(d.name) + "'></rect></svg> &nbsp;" + d.name + ": " + d.value + " " + d.units;
       });
 
   </script>
