@@ -10,6 +10,7 @@
 
   <!-- this is the listeners for input from user -->
   <script>
+    
     window.onload = function () {
       // listener for toggling the graphs
       document
@@ -37,13 +38,12 @@
         .addEventListener("click", function () {
           alert("This Will Change the scene and or update data");
         });
-
-      document
+        document
         .querySelector(".help")
         .addEventListener("click", function () {
           const mess = document.querySelector("#modal");
-          const mess2 = document.querySelector(".legend-cont")
-          
+          const mess2 = document.querySelector(".legend-cont");
+
           if (mess.style.display == "none") {
             mess.style.display = "block";
             mess2.style.display = "none";
@@ -57,27 +57,24 @@
         .addEventListener("click", function () {
           const mess = document.querySelector("#modal")
           mess.style.display = "none";
-        })
+        });
 
-      document
+        document
         .querySelector(".legend")
         .addEventListener("click", function () {
           const mess = document.querySelector(".legend-cont")
           mess.style.display = "block";
-        })
+        });
 
       document
         .querySelector("#legendClose")
         .addEventListener("click", function () {
           const mess = document.querySelector(".legend-cont")
           mess.style.display = "none";
-        })
-
-
-
-    }
+        });
+    };
   </script>
-  <!-- delete this tab to uncomment
+  <!--
   <script >
       
     /*
@@ -87,6 +84,7 @@
     */
 
     function updateData() {
+      return new Promise((resolve, reject) => {
       //Initialize xhr
       const xhr = new XMLHttpRequest();
       //Establish URL for local host this will have to be changed later
@@ -104,6 +102,8 @@
             //Esablish Array to return
             let valArray = [[],responseJSON.name]
             responseJSON.data.forEach(function(item){
+          
+              console.log(item);
               //Add the units to the array
               if(valArray.length < 3){
                 valArray.push(item.units)
@@ -112,15 +112,24 @@
               valArray[0].push(item.value)
 
             });
-
-            return valArray;
+           // { value: 30, name: "January", units: "g/day" }
+          let forGraph = [];
+            for (var i = 0; i < valArray[0].length; i++) {
+              var vals = {value: parseInt(valArray[0][i]), name: i.toString(), units: valArray[2]}
+              forGraph.push(vals)
+          }
+          console.log(forGraph);
+          resolve(forGraph);
         }
       };
       //Send the Get request
       xhr.send();
+      });
     }
+
   </script>
-  -->
+-->
+
 </head>
 
 <body>
@@ -130,28 +139,26 @@
     <button class="button">Refresh</button>
     <button class="legend">Legend</button>
   </div>
-  <button class="help">?</button>
-  <!-- THIS IS THE HELP MENU-->
+<button class="help">?</button>
   <div id="modal">
-    <div id="modalContent">
-      <h1 id="TITLE">Welcome to the AR Aspect of our Project!</h1>
-      <p id="Tdesc">This program runs in HTML and JavaScript bringing our data
-        into the Virtual reality realm!</p>
-      <h3 class="subtitle">How It Works</h3>
-      <p class="desc"> Point the mobile camera at one of our Markers, and when the marker
-        is seen by the camera it will show the graphs created from the data in our database.
-      </p>
-      <h3 class="subtitle">Help</h3>
-      <p class="desc"> Once the marker is found by the camera, there are two buttons you can interact with, a Toggle
-        Chart
-        and a Refresh button.
-      </p>
-      <h4 class="subtitle">Toggle</h4>
-      <p class="desc">This button is what changes the graph type, currently we have a Bar Graph and a Pie chart</p>
-      <h4 class="subtitle">Refresh</h4>
-      <p class="desc">This button is what Updates the data to the most recent values collected</p>
-
-      <button id="closeModal">Close</button>
+      <div id="modalContent">
+        <h1 id="TITLE">Welcome to the AR Aspect of our Project!</h1>
+        <p id="Tdesc">This program runs in HTML and JavaScript bringing our data
+          into the Virtual reality realm!</p>
+        <h3 class="subtitle">How It Works</h3>
+        <p class="desc"> Point the mobile camera at one of our Markers, and when the marker
+          is seen by the camera it will show the graphs created from the data in our database.
+        </p>
+        <h3 class="subtitle">Help</h3>
+        <p class="desc"> Once the marker is found by the camera, there are two buttons you can interact with, a Toggle Chart
+          and a Refresh button.
+        </p>
+        <h4 class="subtitle">Toggle</h4>
+        <p class="desc">This button is what changes the graph type, currently we have a Bar Graph and a Pie chart</p>
+        <h4 class="subtitle">Refresh</h4>
+        <p class="desc">This button is what Updates the data to the most recent values collected</p>
+  
+        <button id="closeModal">Close</button>
     </div>
   </div>
 
@@ -162,7 +169,6 @@
       <button id="legendClose">Close</button>
     </div>
   </div>
-
 
   <!-- this is the stuff in AR -->
   <a-scene embedded arjs>
@@ -178,15 +184,23 @@
 
   <!-- this is the bar graph creation -->
   <script>
+
     // Define data
     // hard coded for now but should be pulled from db in future
-    const data = [
+    async function addData() {
+
+    let data = await updateData();
+    console.log("THIS IS DATA");
+    console.log(data);
+
+    //Hardcoded data should we need it
+    [
       { value: 30, name: "January", units: "g/day" },
       { value: 86, name: "February", units: "g/day" },
       { value: 181, name: "March", units: "g/day" },
       { value: 220, name: "April", units: "g/day" },
       { value: 303, name: "May", units: "g/day" },
-      { value: 600, name: "June", units: "g/day" }];
+      { value: 350, name: "June", units: "g/day" }];
 
     // Variables we need to use later on
     const margin = { top: 30, right: 20, bottom: 30, left: 40 };
@@ -265,25 +279,18 @@
       .attr("color", "white")
       .call(yAxis);
 
-    // Hide the chart initially
-    d3.select("#chart-container").style("display", "none");
+    //Add a title to top of graph
+    svg.append("text")
+      .attr("x", (width - margin.left - margin.right) / 2)
+      .attr("y", margin.top + 20 / 2)
+      .attr("text-anchor", "middle")
+      .style("font-size", "30px")
+      .style("font-weight", "bold")
+      .style("fill", "white")
+      .text("Water Usage");
 
-    // Show the chart when the "hiro" marker is detected
-    const marker = document.querySelector("a-marker");
-    marker.addEventListener("markerFound", () => {
-      d3.select("#chart-container").style("display", "block");
-      document.querySelector(".toggle").style.display = "block";
-      document.querySelector(".button").style.display = "block";
-    });
 
-    // Hide the chart when the "hiro" marker is lost
-    marker.addEventListener("markerLost", () => {
-      d3.select("#chart-container").style("display", "none");
-      document.querySelector(".toggle").style.display = "none";
-      document.querySelector(".button").style.display = "none";
-    });
-
-    // Pie chart Creation -->
+    // Pie chart Creation 
 
     // Convert the data into an array of objects with startAngle and endAngles
     const pie = d3.pie().value(d => d.value).sort(null);
@@ -297,7 +304,7 @@
       .attr("width", width)
       .attr("height", height + 100)
       .append("g")
-      .attr("transform", `translate(${width / 2}, ${height - 100 / 2})`);
+      .attr("transform", `translate(${width / 2}, ${height - 100/ 2})`);
 
     // Define the colors for the pie chart (keep them the same as bar graph)
     const colors = d3.scaleOrdinal()
@@ -338,22 +345,11 @@
         return `translate(${x}, ${y}) rotate(${rotationAngle})`; // rotate the text by the angle
       })
       .attr("text-anchor", "middle") // want the text in the middle
-      .style("fill", "white")
-      .style("text-shadow", "2px 2px 2px black")
+      .style("fill", "black")
       .text(d => `${d.data.value} ${d.data.units}`); // actual text we want
 
-    // Hide the pie chart initially
-    d3.select("#pie-chart-container").style("display", "none");
 
-    // when we lose the marker lets hide everything again
-    marker.addEventListener("markerLost", () => {
-      d3.select("#pie-chart-container").style("display", "none");
-      document.querySelector(".toggle").style.display = "none";
-      document.querySelector(".button").style.display = "none";
-      document.querySelector(".legend").style.display = "none";
-    });
-
-    const legendS = d3.select("#Llegend");
+      const legendS = d3.select("#Llegend");
 
     legendS.style("list-style", "none")
     .style("align-items", "center")
@@ -364,12 +360,40 @@
       .html(function (d) {
         return "<svg width='10' height='10'><rect width='10' height='10' fill='" + colors(d.name) + "'></rect></svg> &nbsp;" + d.name + ": " + d.value + " " + d.units;
       });
+    }
 
+    addData();
+     // Hide the chart initially
+     d3.select("#chart-container").style("display", "none");
+
+     // Show the chart when the "hiro" marker is detected
+     const marker = document.querySelector("a-marker");
+     marker.addEventListener("markerFound", () => {
+       d3.select("#chart-container").style("display", "block");
+       document.querySelector(".toggle").style.display = "block";
+       document.querySelector(".button").style.display = "block";
+     });
+    // Hide the pie chart initially
+    d3.select("#pie-chart-container").style("display", "none");
+    // when we lose the marker lets hide everything again
+    marker.addEventListener("markerLost", () => {
+      d3.select("#pie-chart-container").style("display", "none");
+      document.querySelector(".toggle").style.display = "none";
+      document.querySelector(".button").style.display = "none";
+    });
+    // Hide the chart when the "hiro" marker is lost
+    marker.addEventListener("markerLost", () => {
+      d3.select("#chart-container").style("display", "none");
+      document.querySelector(".toggle").style.display = "none";
+      document.querySelector(".button").style.display = "none";
+      document.querySelector(".legend").style.display = "none";
+    });
+  
   </script>
 
 </body>
 <!-- this is the CSS -->
-<style>
+<style><style>
   html,
   body {
     overflow: hidden;
@@ -563,6 +587,7 @@
   #Tdesc {
     text-align: center;
   }
+</style>
 </style>
 
 </html>
