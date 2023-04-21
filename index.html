@@ -156,9 +156,6 @@
     <div class="legend-content">
       <h1 id="Ltitle">LEGEND</h1>
       <ul>
-        <li><span class="legend-color" style="background-color: red;"></span>Red Data</li>
-        <li><span class="legend-color" style="background-color: blue;"></span>Blue Data</li>
-        <li><span class="legend-color" style="background-color: green;"></span>Green Data</li>
       </ul>
       <button id="legendClose">Close</button>
     </div>
@@ -352,6 +349,16 @@
       document.querySelector(".button").style.display = "none";
       document.querySelector(".legend").style.display = "none";
     });
+
+    const legendS = d3.select(".legend-content");
+
+    legendS.selectAll("li")
+      .data(data)
+      .enter()
+      .append("li")
+      .html(function (d) {
+        return "<svg width='10' height='10'><rect width='10' height='10' fill='" + colors(d.name) + "'></rect></svg>" + d.name;
+      });
 
   </script>
 
