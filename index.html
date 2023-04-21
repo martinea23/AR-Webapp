@@ -321,7 +321,7 @@
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .append("title")
-      .text((d) => `${d.data.name}: ${d.data.value} ${d.data.units}`);
+      .text((d) => `${d.data.value} ${d.data.units}`);
 
     // function to help format text inside pie chart pieces
     const text = arcs.append("text")
@@ -357,7 +357,7 @@
       .enter()
       .append("li")
       .html(function (d) {
-        return "<svg width='10' height='10'><rect width='10' height='10' fill='" + colors(d.name) + "'></rect></svg>" + d.name;
+        return "<svg width='10' height='10'><rect width='10' height='10' fill='" + colors(d.name) + "'></rect></svg>" + d.name + ": " + d.value + d.units;
       });
 
   </script>
