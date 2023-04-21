@@ -155,8 +155,7 @@
   <div class="legend-cont">
     <div class="legend-content">
       <h1 id="Ltitle">LEGEND</h1>
-      <ul>
-      </ul>
+      <ul id="Llegend"></ul>
       <button id="legendClose">Close</button>
     </div>
   </div>
@@ -351,9 +350,10 @@
       document.querySelector(".legend").style.display = "none";
     });
 
-    const legendS = d3.select(".legend-content");
+    const legendS = d3.select("#Llegend");
 
-    legendS.selectAll("li")
+    legendS.style("list-style", "none")
+      .selectAll("li")
       .data(data)
       .enter()
       .append("li")
@@ -453,7 +453,7 @@
   }
 
   .legend-cont {
-    display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -481,6 +481,10 @@
     color: white;
     border-color: #008CBA;
     font-size: large;
+  }
+
+  #legendClose:hover {
+    background-color: orange;
   }
 
   #Ltitle{
