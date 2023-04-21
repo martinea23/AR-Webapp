@@ -187,11 +187,11 @@
 
     // Define data
     // hard coded for now but should be pulled from db in future
-    async function addData() {
+    //async function addData() {
 
-    let data = await updateData();
-    console.log("THIS IS DATA");
-    console.log(data);
+    //let data = await updateData();
+    //console.log("THIS IS DATA");
+   // console.log(data);
 
     //Hardcoded data should we need it
     [
@@ -360,9 +360,9 @@
       .html(function (d) {
         return "<svg width='10' height='10'><rect width='10' height='10' fill='" + colors(d.name) + "'></rect></svg> &nbsp;" + d.name + ": " + d.value + " " + d.units;
       });
-    }
+    //}
 
-    addData();
+    //addData();
      // Hide the chart initially
      d3.select("#chart-container").style("display", "none");
 
