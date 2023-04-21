@@ -336,8 +336,9 @@
         return `translate(${x}, ${y}) rotate(${rotationAngle})`; // rotate the text by the angle
       })
       .attr("text-anchor", "middle") // want the text in the middle
-      .style("fill", "black")
-      .text(d => `${d.data.name}: \n ${d.data.value} ${d.data.units}`); // actual text we want
+      .style("fill", "white")
+      .style("text-shadow", "2px 2px 2px black")
+      .text(d => `${d.data.value} ${d.data.units}`); // actual text we want
 
     // Hide the pie chart initially
     d3.select("#pie-chart-container").style("display", "none");
