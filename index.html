@@ -42,8 +42,11 @@
         .querySelector(".help")
         .addEventListener("click", function () {
           const mess = document.querySelector("#modal");
+          const mess2 = document.querySelector(".legend-cont")
+          
           if (mess.style.display == "none") {
             mess.style.display = "block";
+            mess2.style.display = "none";
           } else {
             mess.style.display = "none";
           }
@@ -353,6 +356,7 @@
     const legendS = d3.select("#Llegend");
 
     legendS.style("list-style", "none")
+    .style("align-items", "center")
       .selectAll("li")
       .data(data)
       .enter()
@@ -477,9 +481,13 @@
 
   #legendClose{
     position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #008CBA;
     color: white;
     border-color: #008CBA;
+    margin-top: 1%;
+    margin-bottom: 100px;
     font-size: large;
   }
 
